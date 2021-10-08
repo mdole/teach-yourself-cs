@@ -1,3 +1,11 @@
+# Setup
+
+- Took me a while to get Scheme set up locally. I ended up doing the following:
+  - Downloading Racket
+  - Updating my $PATH to include the `racket` executable (and the other executables from that `bin` folder)
+  - Running `raco pkg install simply-scheme`
+  - To use `simply-scheme`, I run: `racket -I simply-scheme` (from https://stackoverflow.com/questions/18628862/how-do-i-set-the-language-in-the-racket-repl)
+
 # 1.1
 
 - How do languages allow us to combine simple ideas into more complex ideas?
@@ -114,3 +122,18 @@
 ## 1.1.7 Example: Square Roots by Newton's Method
 
 - Key takeaway: computer procedures must be "effective" - they need to describe how to do things rather than properties of things
+
+## 1.1.8 Procedures as Black-Box Abstractions
+
+- When considering a problem, breaking it up into subproblems that are each accomplished by a separate procedure can be one way to solve
+- We can think of each procedure as a "black box"; we don't care _how_ they work but only that we get the expected result from them
+- _Procedural abstraction_: when calling a procedure (e.g. `square`) from another procedure (e.g. `good-enough?`), the former procedure is an abstraction of a procedure as far as the latter procedure is concerned (the definition, the workings, are totally separate and the procedure doing the calling knows nothing about them)
+  - Two different procedures called `square` that operate differently but both produce the square of the input would be indistinguishable as procedural abstractions
+- Key concept: users of a procedure should not need to know how procedure is implemented in order to use it
+- Procedure definitions _bind_ their formal parameters; they are _bound variables_.
+  - _Scope_ = "the set of expressions for which a binding defines a name"
+  - Variable that is not bound = _free_ (that's...confusing. What does that mean?)
+    - `<`, `-`, `abs`, `square` are free variables in `good-enough?` - so I guess anything that is not a variable defined in the context of the function is free?
+- We can define procedures inside of other procedures so that they are local to the procedure they're defined inside of
+  - This nesting is called _block structure_
+  - When using nested functions, a variable bound by (passed into) the outermost function can be "free" for the nested functions (it's not explicitly passed in but they still have access to it). This is called _lexical scoping_
