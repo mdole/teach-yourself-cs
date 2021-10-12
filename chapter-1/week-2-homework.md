@@ -139,3 +139,37 @@
   )
 )
 ```
+
+Rewriting `sqrt` using iterative-improve:
+
+```scheme
+; Original:
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x)
+                 x)))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+
+; New:
+; I want the square root of x, say 9
+(define (sqrt-new x)
+  ((iterative-improve good-enough? improve) x)
+)
+```
+
+- What I'm getting confused about: x. What is x, and how does it work when we're passing it around?
+  - X is actually the number we want to get the square root of
+  - So I guess I could just hardcode guess as 1 for my good-enough procedure...ah, but that doesn't work, does it? Because as soon as we guess another number, we need to change guess
+- Ugh. I guess I'll come back to this tomorrow
